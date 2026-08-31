@@ -33,26 +33,6 @@ The workflow includes:
 - Seaborn
 - Jupyter Notebook
 
-## Project Structure
-
-```text
-transaction-fraud-detection/
-├── data/
-│   └── creditcard.csv
-├── models/
-│   ├── fraud_model_xgb.pkl
-│   └── feature_columns.pkl
-├── src/
-│   ├── app.py
-│   ├── train_xgboost.py
-│   ├── train_model.py
-│   ├── test_api.py
-│   ├── feature_engineering.py
-│   ├── rules_engine.py
-│   └── visualize.py
-├── .gitignore
-├── README.md
-└── requirements.txt
 
 ## Dataset
 
