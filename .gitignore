@@ -1,0 +1,33 @@
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Dataset
+data/creditcard.csv
+data/*.csv
+
+# Trained model files
+models/*.pkl
+models/*.joblib
+
+# Generated plots
+*.png
+*.jpg
+*.jpeg
+plots/
+
+# Jupyter Notebook files
+.ipynb_checkpoints/
+
+# PyCharm and VS Code settings
+.idea/
+.vscode/
+
+# Environment variables and secrets
+.env
