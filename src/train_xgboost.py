@@ -13,10 +13,8 @@ from sklearn.metrics import (
 from xgboost import XGBClassifier
 
 
-# --------------------------------------------------
-# Project paths
-# --------------------------------------------------
 
+# project paths
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 DATA_PATH = BASE_DIR / "data" / "creditcard.csv"
@@ -26,14 +24,11 @@ MODEL_PATH = MODEL_DIR / "fraud_model_xgb.pkl"
 FEATURES_PATH = MODEL_DIR / "feature_columns.pkl"
 
 
-# Create the models directory if it does not exist
+# create models directory if it doesn't exist
 MODEL_DIR.mkdir(parents=True, exist_ok=True)
 
 
-# --------------------------------------------------
-# Load dataset
-# --------------------------------------------------
-
+# load dataset
 print(f"Loading dataset from: {DATA_PATH}")
 
 if not DATA_PATH.exists():
@@ -44,10 +39,7 @@ df = pd.read_csv(DATA_PATH)
 print(f"Dataset shape: {df.shape}")
 
 
-# --------------------------------------------------
-# Prepare features and target
-# --------------------------------------------------
-
+# prep features and target
 if "Class" not in df.columns:
     raise ValueError("The dataset must contain a 'Class' column.")
 
@@ -56,7 +48,7 @@ y = df["Class"]
 
 feature_columns = list(X.columns)
 
-# Calculate class imbalance weight
+# calculate class imbalance weight
 negative_count = (y == 0).sum()
 positive_count = (y == 1).sum()
 
@@ -67,10 +59,7 @@ print(f"Fraudulent transactions: {positive_count}")
 print(f"Scale positive weight: {scale_pos_weight:.2f}")
 
 
-# --------------------------------------------------
-# Train/test split
-# --------------------------------------------------
-
+# train/test split
 X_train, X_test, y_train, y_test = train_test_split(
     X,
     y,
@@ -80,10 +69,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 
-# --------------------------------------------------
-# Create and train XGBoost model
-# --------------------------------------------------
-
+# create and train XGBoost model
 model = XGBClassifier(
     n_estimators=300,
     max_depth=6,
@@ -102,10 +88,7 @@ print("Training XGBoost model...")
 model.fit(X_train, y_train)
 
 
-# --------------------------------------------------
-# Evaluate model
-# --------------------------------------------------
-
+# evaluate model
 y_pred = model.predict(X_test)
 y_proba = model.predict_proba(X_test)[:, 1]
 
@@ -119,10 +102,7 @@ print(f"Average Precision (PR-AUC): {pr_auc:.6f}")
 print(f"ROC-AUC: {roc_auc:.6f}")
 
 
-# --------------------------------------------------
-# Save model and feature columns
-# --------------------------------------------------
-
+# save model and feature columns
 joblib.dump(model, MODEL_PATH)
 joblib.dump(feature_columns, FEATURES_PATH)
 
