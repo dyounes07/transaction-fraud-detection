@@ -5,14 +5,14 @@ import pandas as pd
 from flask import Flask, jsonify, request
 
 
-# Project root directory
+# project root directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 MODEL_PATH = BASE_DIR / "models" / "fraud_model_xgb.pkl"
 FEATURES_PATH = BASE_DIR / "models" / "feature_columns.pkl"
 
 
-# Make sure the required files are available
+# make sure required files are available
 if not MODEL_PATH.exists():
     raise FileNotFoundError(f"Model not found: {MODEL_PATH}")
 
@@ -55,7 +55,7 @@ def predict():
             "error": "Request body must contain JSON data"
         }), 400
 
-    # Find any features missing from the request
+    # find any features missing from the request
     missing_features = [
         feature for feature in feature_columns
         if feature not in data
@@ -67,7 +67,7 @@ def predict():
             "missing_features": missing_features
         }), 400
 
-    # Arrange the input columns in the same order as during training
+    # arrange the input columns in the same order as during training
     input_df = pd.DataFrame(
         [[data[feature] for feature in feature_columns]],
         columns=feature_columns
