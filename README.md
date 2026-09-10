@@ -30,8 +30,6 @@ The workflow includes:
 - Requests
 - Joblib
 - Matplotlib
-- Seaborn
-- Jupyter Notebook
 
 
 ## Dataset
