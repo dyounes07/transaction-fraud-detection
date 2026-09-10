@@ -17,7 +17,8 @@ The workflow includes:
 - Model evaluation
 - Saving trained model artifacts
 - Real-time fraud predictions through a REST API
-- Automated API testing
+
+Next steps: Automated API Testing 
 
 ## Technologies Used
 
