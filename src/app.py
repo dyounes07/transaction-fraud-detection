@@ -73,13 +73,22 @@ def predict():
         columns=feature_columns
     )
 
+    # get probability threshold from request, otherwise default to 0.5
+    try:
+        threshold = float(data.get("threshold", 0.5))
+    except (TypeError, ValueError):
+        return jsonify({"error": "threshold must be a number"}), 400
+
+    if not 0 <= threshold <= 1:
+        return jsonify({"error": "threshold must be between 0 and 1"}), 400
+        
     probability = float(model.predict_proba(input_df)[0, 1])
-    is_fraud = probability >= 0.5
+    is_fraud = probability >= threshold
 
     return jsonify({
         "fraud_probability": probability,
         "is_fraud": bool(is_fraud),
-        "threshold": 0.5
+        "threshold": threshold
     })
 
 
